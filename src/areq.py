@@ -35,7 +35,10 @@ async def fetch_html(url: str, session: ClientSession, **kwargs) -> str:
     resp = await session.request(method="GET", url=url, **kwargs)  # Perform GET request
     resp.raise_for_status()  # Raise exception if response status is not OK
     logger.info("Got response [%s] for URL: %s", resp.status, url)  # Log response status
-    html = await resp.text()  # Read response body as text
+    
+    # Read response body asynchronously to avoid blocking the event loop.
+    # This is necessary because `resp.text()` is an asynchronous coroutine.
+    html = await resp.text()
     return html  # Return HTML content
 
 async def parse(url: str, session: ClientSession, **kwargs) -> set:

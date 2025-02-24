@@ -22,4 +22,19 @@
 - `fetch_html(url, session)`: Fetches the HTML content of a URL.
 - `parse(url, session)`: Extracts links from the HTML response.
 - `write_one(file, url)`: Writes extracted links to a file.
-- `bulk_crawl_and_write(file, urls)`: Manages concurrent crawling and writing.
+- `bulk_crawl_and_write(file, urls)`: Manages concurrent crawling and 
+writing.
+
+## Understanding `resp.text()`
+In `fetch_html()`, the `resp.text()` method is **awaited** because it is an **asynchronous operation**. Here's why:
+
+- `resp.text()` is a coroutine in `aiohttp` that **reads the response body** asynchronously.
+- Since the response might be large, reading it fully into memory can take time.
+- Using `await` allows the event loop to **pause execution** of `fetch_html()` until the text is fully retrieved, allowing other tasks to run in the meantime.
+
+**Correct Usage:**
+```python
+html = await resp.text()  # Waits for the response body to be fully received
+```
+- The `await` ensures that the response is **fully read before proceeding**.
+- Other tasks in the event loop can continue executing while waiting for the response.
