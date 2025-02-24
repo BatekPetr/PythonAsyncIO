@@ -15,6 +15,6 @@ Commented code is in [chained.py](./src/chained.py). Detailed explanation in [ch
 
 ### Using a Queue
 
-Commented code is in [asynq.py](src/asyncq.py). Detailed explanation in [asyncq.md](./src/asyncq.md).
+Commented code is in [asyncq.py](src/asyncq.py). Detailed explanation in [asyncq.md](./src/asyncq.md).
 
 
